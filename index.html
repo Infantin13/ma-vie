@@ -1,48 +1,51 @@
 <!doctype html>
+
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Mon Storybook — Neuf mois</title>
   <style>
-    :root{--bg:#f8f6f3;--paper:#fff;--accent:#222}
-    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
-    body{display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#eef1f3, #f8f6f3);padding:24px}
-    .book{width:900px;max-width:95vw;display:grid;grid-template-columns:1fr 180px;gap:24px;align-items:center}
-    .page{background:var(--paper);padding:36px;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,0.12);min-height:560px;overflow:auto;white-space:pre-line}
-    .controls{display:flex;flex-direction:column;gap:12px;align-items:center}
+    :root{
+      --bg:#f4f1ee;
+      --paper:#fff;
+      --accent:#2b2b2b;
+      --highlight:#e0d4c0;
+    }
+    html,body{height:100%;margin:0;font-family:'Georgia', serif; background:linear-gradient(180deg,#f9f7f3,#f4f1ee); display:flex;align-items:center;justify-content:center;padding:24px;}
+    .book{width:900px;max-width:95vw;display:grid;grid-template-columns:1fr 200px;gap:24px;align-items:start; perspective:1500px;}
+    .page{background:var(--paper);padding:40px;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,0.15);min-height:600px;overflow:auto;white-space:pre-line; line-height:1.7; color:#333; transition: transform 0.6s ease, opacity 0.6s ease; transform-style: preserve-3d;}
+    .page.turn-left{transform: rotateY(-180deg); opacity:0;}
+    .page.turn-right{transform: rotateY(180deg); opacity:0;}
+    .page h1{font-size:26px; margin-bottom:16px; color:var(--accent); text-shadow:1px 1px 2px rgba(0,0,0,0.1);}
+    .page p{margin:12px 0; font-size:17px;}
+    .page footer{margin-top:20px;font-size:14px;color:#999;text-align:right;}
+    .controls{display:flex;flex-direction:column;gap:16px;align-items:center}
     .nav{display:flex;gap:12px}
-    button{background:#fff;border:1px solid #ddd;padding:12px 16px;border-radius:10px;font-size:18px;cursor:pointer}
-    button:disabled{opacity:0.4;cursor:not-allowed}
+    button{background:var(--highlight);border:none;padding:12px 18px;border-radius:12px;font-size:18px;cursor:pointer;box-shadow:0 5px 10px rgba(0,0,0,0.1);transition:transform 0.1s;}
+    button:hover{transform:translateY(-2px);}
+    button:disabled{opacity:0.5;cursor:not-allowed;}
     .meta{font-size:14px;color:#666}
-    .page h1{margin:0 0 12px;font-size:20px}
-    .page p{margin:10px 0;line-height:1.6}
-    .page .small{font-size:13px;color:#555}
-    footer{margin-top:18px;font-size:13px;color:#666}
     @media (max-width:800px){.book{grid-template-columns:1fr;}.controls{flex-direction:row;justify-content:space-between}}
   </style>
 </head>
 <body>
   <div class="book" role="main">
-    <div class="page" id="page">
-      <!-- contenu injecté en JS -->
-    </div>
-
-    <div class="controls" aria-hidden="false">
+    <div class="page" id="page"></div>
+    <div class="controls">
       <div class="meta">Livre : <strong>Neuf mois</strong></div>
       <div class="nav">
         <button id="prev" aria-label="page précédente">◀</button>
         <button id="next" aria-label="page suivante">▶</button>
       </div>
-      <div class="meta" id="pageno">Page 1 / 19</div>
+      <div class="meta" id="pageno">Page 1 / N</div>
       <div style="margin-top:12px;font-size:13px;color:#444">Utilise les flèches pour tourner les pages.</div>
-      <div style="margin-top:auto;font-size:12px;color:#888">Je t'aime ma vie</div>
     </div>
   </div>
 
   <script>
     const pages = [
-`Neuf mois\n\nQui aurait cru que je puisse parler, aimer une autre femme?\n\nJe me souviens de ce jour comme si c'était hier. J'errais dans le bureau, cherchant une personne pour m'accueillir pour signer mon contrat
+     `Neuf mois\n\nQui aurait cru que je puisse parler, aimer une autre femme?\n\nJe me souviens de ce jour comme si c'était hier. J'errais dans le bureau, cherchant une personne pour m'accueillir pour signer mon contrat
 J'ai ouvert la porte, à gauche 2 filles (je ne sais plus si elles m’ont calculé ou si elles m'ont redirigé vers toi, ce détail m'échappe), j'ai donc avancé vers toi qui tirait la gueule, comme si tu étais agacée, comme si tu n'avais pas envie de m'accueillir, dans ma tête j'ai hésité à repartir vers les autres filles pour le contrat mais tu t'es levé, très speed comme ton tempérament est, je t'ai regardé, j'ai beaucoup aimé ton allure, petite, mignonne, fine.
 Tu m'as donc fait m'assoir pour que je vérifie les fautes que je pouvais trouver sur le contrat.
 Forcément j'ai trouvé une faute, tu es partie vérifier et effectivement tu as rectifié (tu m'as sorti une excuse que ce n'est pas toi qui t'en étais occupé, tu n’es pas doué, tu n’es pas doué écoute) 
@@ -150,7 +153,7 @@ Quand tu me dis que tu as passé un week-end en émotion, j'ai tout de suite com
 Tu marches de mieux en mieux de jours en jours, tu reviens au boulot, j'arrive à voir ta grosse tête au self
 Je me mets en face pour te voir parce que j'avais envie de te regarder pendant que je mange, le téléphone vibre... "tu ne vas pas être content" je lève les yeux et je le vois... une bouffée de chaleur monte en moi, de la colère, de la jalousie, de la tristesse, un mélange de tout me traverse, horrible cette sensation. J'essaie de regarder ailleurs de tourner la tête... tu es en face, je te vois lui parler, rigoler avec... je n’arrive pas, normalement on décolle là qu'est-ce qu'il se passe ? ils sont là à discuter, ils ne s'arrêtent pas, je mets ma veste, on y va ? ils finissent leur discussion... enfin on se lève... plus jamais à cette place.`,
 
-`Un Adieu\n\nDepuis quelques jours dans nos échanges je te sens un différente, comme si tu avais encore pris du recul, on discute mais sans plus, je ne sais plus trop quoi faire, dire, on va se voir 1 fois cette semaine-là à la cantine et on dirait que ça ne t’affecte pas, tu ne dis rien, c'est horrible cette sensation, est ce que ça t’attriste ? est-ce que je te manque ? Je sais qu'oui mais tu effaces tellement tes sentiments, je prends sur moi, je ne dis rien contrairement à avant ou je t'aurais rendu folle, avant tu ne pouvais pas passer 2 min sans me parler, maintenant... des heures, des jours tu y arrives.
+`Un Adieu\n\nDepuis quelques jours dans nos échanges je te sens différente, comme si tu avais encore pris du recul, on discute mais sans plus, je ne sais plus trop quoi faire, dire, on va se voir 1 fois cette semaine-là à la cantine et on dirait que ça ne t’affecte pas, tu ne dis rien, c'est horrible cette sensation, est ce que ça t’attriste ? est-ce que je te manque ? Je sais qu'oui mais tu effaces tellement tes sentiments, je prends sur moi, je ne dis rien contrairement à avant ou je t'aurais rendu folle, avant tu ne pouvais pas passer 2 min sans me parler, maintenant... des heures, des jours tu y arrives.
 Aujourd’hui tu es incertaine de tout, même de notre histoire, tu me disais tu es ma vie, on finira ensemble c'est sûr, maintenant tu ne me le dis plus et c'est plutôt "je ne suis pas sûr qu'un jour, on finira ensemble"... 
 J'avoue que ça m'anéanti de lire ce genre de chose venant de toi moi qui espérait beaucoup. Mais comme je m'en doutais, tu as construit ta vie, entièrement... Je n'ai pas encore le quart de ce que tu as.
 Bon bah voilà, tu viens de mettre fin à notre histoire, les larmes coulent en t'écrivant ces dernières lignes, moi qui pensais à une autre fin en écrivant notre récit, je ne pensais pas le cloturer subitement, de cette façon... Tu vas pouvoir maintenant être heureuse pleinement en vivant avec ta famille, je te le souhaite, tu le mérites et merci pour tout, j'aurais connu dans ma vie une femme qui m'aura fait me sentir moi durant 9 mois et j'avoue que ça m’a fait du bien, j'ai découvert ce que c'était vraiment d'être heureux. Généralement 9 mois c’est le résultat d’un bonheur, cette fois-ci, c’est un livre qui se ferme.
@@ -164,9 +167,21 @@ Je t'aime marie, ma vie. Adieu.`
     const nextBtn = document.getElementById('next');
     const pageno = document.getElementById('pageno');
 
-    function render(){
+    function render(direction){
+      pageEl.classList.remove('turn-left','turn-right');
+      if(direction){
+        pageEl.classList.add(direction);
+        setTimeout(()=>{
+          showPage();
+          pageEl.classList.remove(direction);
+        }, 300);
+      } else {
+        showPage();
+      }
+    }
+
+    function showPage(){
       const raw = pages[idx];
-      // transform first line as title if present
       const parts = raw.split('\n\n');
       let html = '';
       if(parts[0]){
@@ -183,21 +198,15 @@ Je t'aime marie, ma vie. Adieu.`
     }
 
     function escapeHtml(s){
-      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/\' /g,'&#39;')
-               .replace(/\n/g,'<br>');
+      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\'/g,'&#39;').replace(/\n/g,'<br>');
     }
 
-    prevBtn.addEventListener('click',()=>{ if(idx>0){idx--;render();} });
-    nextBtn.addEventListener('click',()=>{ if(idx<pages.length-1){idx++;render();} });
+    prevBtn.addEventListener('click',()=>{ if(idx>0){idx--; render('turn-left');} });
+    nextBtn.addEventListener('click',()=>{ if(idx<pages.length-1){idx++; render('turn-right');} });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='ArrowRight') nextBtn.click(); if(e.key==='ArrowLeft') prevBtn.click(); });
 
-    // keyboard navigation
-    document.addEventListener('keydown', (e)=>{
-      if(e.key==='ArrowRight') nextBtn.click();
-      if(e.key==='ArrowLeft') prevBtn.click();
-    });
-
-    // initial render
     render();
   </script>
+
 </body>
 </html>
