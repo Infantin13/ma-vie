@@ -1,50 +1,105 @@
 <!doctype html>
-
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mon Storybook — Neuf mois</title>
-  <style>
-    :root{
-      --bg:#f4f1ee;
-      --paper:#fff;
-      --accent:#2b2b2b;
-      --highlight:#e0d4c0;
-    }
-    html,body{height:100%;margin:0;font-family:'Georgia', serif; background:linear-gradient(180deg,#f9f7f3,#f4f1ee); display:flex;align-items:center;justify-content:center;padding:24px;}
-    .book{width:900px;max-width:95vw;display:grid;grid-template-columns:1fr 200px;gap:24px;align-items:start; perspective:1500px;}
-    .page{background:var(--paper);padding:40px;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,0.15);min-height:600px;overflow:auto;white-space:pre-line; line-height:1.7; color:#333; transition: transform 0.6s ease, opacity 0.6s ease; transform-style: preserve-3d;}
-    .page.turn-left{transform: rotateY(-180deg); opacity:0;}
-    .page.turn-right{transform: rotateY(180deg); opacity:0;}
-    .page h1{font-size:26px; margin-bottom:16px; color:var(--accent); text-shadow:1px 1px 2px rgba(0,0,0,0.1);}
-    .page p{margin:12px 0; font-size:17px;}
-    .page footer{margin-top:20px;font-size:14px;color:#999;text-align:right;}
-    .controls{display:flex;flex-direction:column;gap:16px;align-items:center}
-    .nav{display:flex;gap:12px}
-    button{background:var(--highlight);border:none;padding:12px 18px;border-radius:12px;font-size:18px;cursor:pointer;box-shadow:0 5px 10px rgba(0,0,0,0.1);transition:transform 0.1s;}
-    button:hover{transform:translateY(-2px);}
-    button:disabled{opacity:0.5;cursor:not-allowed;}
-    .meta{font-size:14px;color:#666}
-    @media (max-width:800px){.book{grid-template-columns:1fr;}.controls{flex-direction:row;justify-content:space-between}}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mon Storybook — Neuf mois</title>
+<style>
+:root{
+  --bg:#f4f1ee;
+  --paper:#fff;
+  --accent:#2b2b2b;
+  --highlight:#e0d4c0;
+}
+html,body{
+  height:100%;
+  margin:0;
+  font-family:'Georgia', serif;
+  background:linear-gradient(180deg,#f9f7f3,#f4f1ee);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+.book{
+  width:900px;
+  max-width:95vw;
+  display:grid;
+  grid-template-columns:1fr 200px;
+  gap:24px;
+  align-items:start;
+}
+.page{
+  background:var(--paper);
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.15);
+  min-height:600px;
+  max-height:80vh;        /* Limite la hauteur */
+  overflow:auto;          /* Scroll si texte trop long */
+  white-space:pre-line;
+  line-height:1.7;
+  color:#333;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  transform-style: preserve-3d;
+}
+.page.turn-left{transform: rotateY(-180deg); opacity:0;}
+.page.turn-right{transform: rotateY(180deg); opacity:0;}
+.page h1{
+  font-size:26px; 
+  margin-bottom:16px; 
+  color:var(--accent); 
+  text-shadow:1px 1px 2px rgba(0,0,0,0.1);
+}
+.page p{margin:12px 0; font-size:17px;}
+.page footer{
+  margin-top:20px;
+  font-size:14px;
+  color:#999;
+  text-align:right;
+}
+.controls{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  align-items:center
+}
+.nav{display:flex;gap:12px}
+button{
+  background:var(--highlight);
+  border:none;
+  padding:12px 18px;
+  border-radius:12px;
+  font-size:18px;
+  cursor:pointer;
+  box-shadow:0 5px 10px rgba(0,0,0,0.1);
+  transition:transform 0.1s;
+}
+button:hover{transform:translateY(-2px);}
+button:disabled{opacity:0.5;cursor:not-allowed;}
+.meta{font-size:14px;color:#666}
+@media (max-width:800px){
+  .book{grid-template-columns:1fr;}
+  .controls{flex-direction:row;justify-content:space-between}
+}
+</style>
 </head>
 <body>
-  <div class="book" role="main">
-    <div class="page" id="page"></div>
-    <div class="controls">
-      <div class="meta">Livre : <strong>Neuf mois</strong></div>
-      <div class="nav">
-        <button id="prev" aria-label="page précédente">◀</button>
-        <button id="next" aria-label="page suivante">▶</button>
-      </div>
-      <div class="meta" id="pageno">Page 1 / N</div>
-      <div style="margin-top:12px;font-size:13px;color:#444">Utilise les flèches pour tourner les pages.</div>
+<div class="book" role="main">
+  <div class="page" id="page"></div>
+  <div class="controls">
+    <div class="meta">Livre : <strong>Neuf mois</strong></div>
+    <div class="nav">
+      <button id="prev" aria-label="page précédente">◀</button>
+      <button id="next" aria-label="page suivante">▶</button>
     </div>
+    <div class="meta" id="pageno">Page 1 / N</div>
+    <div style="margin-top:12px;font-size:13px;color:#444">Utilise les flèches pour tourner les pages.</div>
   </div>
+</div>
 
-  <script>
-    const pages = [
+<script>
+const pages = [
      `Neuf mois\n\nQui aurait cru que je puisse parler, aimer une autre femme?\n\nJe me souviens de ce jour comme si c'était hier. J'errais dans le bureau, cherchant une personne pour m'accueillir pour signer mon contrat
 J'ai ouvert la porte, à gauche 2 filles (je ne sais plus si elles m’ont calculé ou si elles m'ont redirigé vers toi, ce détail m'échappe), j'ai donc avancé vers toi qui tirait la gueule, comme si tu étais agacée, comme si tu n'avais pas envie de m'accueillir, dans ma tête j'ai hésité à repartir vers les autres filles pour le contrat mais tu t'es levé, très speed comme ton tempérament est, je t'ai regardé, j'ai beaucoup aimé ton allure, petite, mignonne, fine.
 Tu m'as donc fait m'assoir pour que je vérifie les fautes que je pouvais trouver sur le contrat.
@@ -161,52 +216,51 @@ C'est la première fois que je fais ça de ma vie.
 Je t'aime marie, ma vie. Adieu.`
     ];
 
-    let idx = 0;
-    const pageEl = document.getElementById('page');
-    const prevBtn = document.getElementById('prev');
-    const nextBtn = document.getElementById('next');
-    const pageno = document.getElementById('pageno');
+let idx = 0;
+const pageEl = document.getElementById('page');
+const prevBtn = document.getElementById('prev');
+const nextBtn = document.getElementById('next');
+const pageno = document.getElementById('pageno');
 
-    function render(direction){
-      pageEl.classList.remove('turn-left','turn-right');
-      if(direction){
-        pageEl.classList.add(direction);
-        setTimeout(()=>{
-          showPage();
-          pageEl.classList.remove(direction);
-        }, 300);
-      } else {
-        showPage();
-      }
+function render(direction){
+  pageEl.classList.remove('turn-left','turn-right');
+  if(direction){
+    pageEl.classList.add(direction);
+    setTimeout(()=>{
+      showPage();
+      pageEl.classList.remove(direction);
+    }, 300);
+  } else {
+    showPage();
+  }
+}
+
+function showPage(){
+  const raw = pages[idx];
+  const parts = raw.split('\n\n');
+  let html = '';
+  if(parts[0]){
+    html += `<h1>${escapeHtml(parts[0])}</h1>`;
+    for(let i=1;i<parts.length;i++){
+      html += `<p>${escapeHtml(parts[i])}</p>`;
     }
+  }
+  html += `<footer>Page ${idx+1} / ${pages.length}</footer>`;
+  pageEl.innerHTML = html;
+  pageno.textContent = `Page ${idx+1} / ${pages.length}`;
+  prevBtn.disabled = idx===0;
+  nextBtn.disabled = idx===pages.length-1;
+}
 
-    function showPage(){
-      const raw = pages[idx];
-      const parts = raw.split('\n\n');
-      let html = '';
-      if(parts[0]){
-        html += `<h1>${escapeHtml(parts[0])}</h1>`;
-        for(let i=1;i<parts.length;i++){
-          html += `<p>${escapeHtml(parts[i])}</p>`;
-        }
-      }
-      html += `<footer>Page ${idx+1} / ${pages.length}</footer>`;
-      pageEl.innerHTML = html;
-      pageno.textContent = `Page ${idx+1} / ${pages.length}`;
-      prevBtn.disabled = idx===0;
-      nextBtn.disabled = idx===pages.length-1;
-    }
+function escapeHtml(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\'/g,'&#39;').replace(/\n/g,'<br>');
+}
 
-    function escapeHtml(s){
-      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\'/g,'&#39;').replace(/\n/g,'<br>');
-    }
+prevBtn.addEventListener('click',()=>{ if(idx>0){idx--; render('turn-left');} });
+nextBtn.addEventListener('click',()=>{ if(idx<pages.length-1){idx++; render('turn-right');} });
+document.addEventListener('keydown', (e)=>{ if(e.key==='ArrowRight') nextBtn.click(); if(e.key==='ArrowLeft') prevBtn.click(); });
 
-    prevBtn.addEventListener('click',()=>{ if(idx>0){idx--; render('turn-left');} });
-    nextBtn.addEventListener('click',()=>{ if(idx<pages.length-1){idx++; render('turn-right');} });
-    document.addEventListener('keydown', (e)=>{ if(e.key==='ArrowRight') nextBtn.click(); if(e.key==='ArrowLeft') prevBtn.click(); });
-
-    render();
-  </script>
-
+render();
+</script>
 </body>
 </html>
