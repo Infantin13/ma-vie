@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mon Storybook — Neuf mois</title>
+  <style>
+    :root{--bg:#f8f6f3;--paper:#fff;--accent:#222}
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    body{display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#eef1f3, #f8f6f3);padding:24px}
+    .book{width:900px;max-width:95vw;display:grid;grid-template-columns:1fr 180px;gap:24px;align-items:center}
+    .page{background:var(--paper);padding:36px;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,0.12);min-height:560px;overflow:auto;white-space:pre-line}
+    .controls{display:flex;flex-direction:column;gap:12px;align-items:center}
+    .nav{display:flex;gap:12px}
+    button{background:#fff;border:1px solid #ddd;padding:12px 16px;border-radius:10px;font-size:18px;cursor:pointer}
+    button:disabled{opacity:0.4;cursor:not-allowed}
+    .meta{font-size:14px;color:#666}
+    .page h1{margin:0 0 12px;font-size:20px}
+    .page p{margin:10px 0;line-height:1.6}
+    .page .small{font-size:13px;color:#555}
+    footer{margin-top:18px;font-size:13px;color:#666}
+    @media (max-width:800px){.book{grid-template-columns:1fr;}.controls{flex-direction:row;justify-content:space-between}}
+  </style>
+</head>
+<body>
+  <div class="book" role="main">
+    <div class="page" id="page">
+      <!-- contenu injecté en JS -->
+    </div>
+
+    <div class="controls" aria-hidden="false">
+      <div class="meta">Livre : <strong>Neuf mois</strong></div>
+      <div class="nav">
+        <button id="prev" aria-label="page précédente">◀</button>
+        <button id="next" aria-label="page suivante">▶</button>
+      </div>
+      <div class="meta" id="pageno">Page 1 / 19</div>
+      <div style="margin-top:12px;font-size:13px;color:#444">Utilise les flèches pour tourner les pages.</div>
+      <div style="margin-top:auto;font-size:12px;color:#888">Je t'aime ma vie</div>
+    </div>
+  </div>
+
+  <script>
+    const pages = [
+`Neuf mois\n\nQui aurait cru que je puisse parler, aimer une autre femme?\n\nJe me souviens de ce jour comme si c'était hier. J'errais dans le bureau, cherchant une personne pour m'accueillir pour signer mon contrat
+J'ai ouvert la porte, à gauche 2 filles (je ne sais plus si elles m’ont calculé ou si elles m'ont redirigé vers toi, ce détail m'échappe), j'ai donc avancé vers toi qui tirait la gueule, comme si tu étais agacée, comme si tu n'avais pas envie de m'accueillir, dans ma tête j'ai hésité à repartir vers les autres filles pour le contrat mais tu t'es levé, très speed comme ton tempérament est, je t'ai regardé, j'ai beaucoup aimé ton allure, petite, mignonne, fine.
+Tu m'as donc fait m'assoir pour que je vérifie les fautes que je pouvais trouver sur le contrat.
+Forcément j'ai trouvé une faute, tu es partie vérifier et effectivement tu as rectifié (tu m'as sorti une excuse que ce n'est pas toi qui t'en étais occupé, tu n’es pas doué, tu n’es pas doué écoute) 
+Après lecture, signature et remise du contrat, rapidement tu m'as expliqué tous les papiers qu'il y avait dans l'enveloppe.
+Merci pour ton accueil malgré que tu aies pu passer une mauvaise journée je suppose.
+A la Suite de ça, tu m'as demandé si je connaissais les lieux et l'endroit où je bossais, moi qui voulait déjà te taquiner... "ouais ça va, j'ai bossé vite fait ici en tant que sous-traitant aciérie, laminoir tout ça..." et je t'avais montré l'aciérie parce que dans ma tête c'était cette direction, je n'avais pas encore le bâtiment en tête, forcément toi qui te moque en retour "Ce n'est pas du tout la, le laminoir" bon tu sais quoi, le jour où tu commences viens ici et on appellera quelqu'un pour qu'il puisse venir te chercher.
+Je crois que tu m'as pris vraiment pour un cassos comme toi ahah 
+Du coup je t'ai répondu mais non t'inquiète je connais Elsa tout ça, je travaillais pour eux je sais y aller au laminoir
+Et là ton naturel est revenu au galop, ça ta fatigué et on a rigolé 
+J'ai repris la route et je me suis remémoré ce moment, j'ai beaucoup aimé, souris dans la voiture.`,
+
+`Décembre\n\nViens à ce jour mon arrivé dans l'usine en décembre, je m'installe tranquillement, au bout d'un mois je commence à avoir mes accès tout ça petit à petit.
+Début janvier, je t'envoie un mail pour me donner ma fiche de paie parce que je ne l'ai jamais reçu à la maison pour pouvoir m'enregistrer sur Digiposte
+Par la suite je perds mon grand-père mi-janvier, je te demande des renseignements pour les congés.`,
+      
+`Le Commencement\n\nQuelques mois après tu m'écris un texto, surpris, je te dis que oui tout est ok avec les papiers tout ça, merci.
+C'était mignon, et c'est là que j'ai commencé à me poser des questions, est-ce normal ? Fait-elle ça avec tous les arrivants ?
+Après ça, tu demandes pour vous aider à poser ses fouchus stickers avec flo
+Forcément on vient vous aider, du grand n'importe quoi, on rigole bien, et toi à regarder sur le bureau.
+J'avais passé une bonne aprèm, ça changeait du quotidien. Tu disais très peu merci, donc je te disais "quand on est poli, on dit merci"
+Les échanges par message était de plus en plus nombreux. Tu me demandais de revenir le lendemain, je t'ai dit je reviens que si Dominique me dit de venir.
+Forcément... tu l'appelles direct, et il est ok. Dans ma tête à ce moment je me suis fait la réflexion, "elle est malade cette meuf, elle appelle le grand chef comme ça, normal" j'ai rigolé, mais j'étais content de revenir
+Le lendemain rebelotte à coller ses ptain de sticker (qu'est-ce que je n'ai pas fait pour toi quand même !), on discute, on rigole bien, j'apprends à connaitre Carla et Flavie, 2 chouettes personnes, très gentilles.`,
+      
+`Les Balades\n\nQuelques jours après tu me proposes qu'on aille balader, encore surpris, (ce sont des choses que je n'ai pas l'habitude qu'on me propose) forcément je dis oui... j'y réfléchis quand est ce que je t'ai dit non en fait ? 
+Très bizarre mais très agréable ce moment, tu te confies, je t'écoute
+Et ainsi de suite au fil des balades, je commence vraiment à te connaitre
+Je te regarde, tu me plais de plus en plus, j'en oublie le travail, je suis l’absorbé par tes histoires, on s'écrit de plus en plus, on s'appelle à chaque fois qu'on décolle du taff, on ne se lâche plus. Je prenais du plaisir à venir à l'usine.
+Dans ma tête c'est le bordel, je ne sais pas ce que tu veux, ce que tu cherches.
+Et un jour, tu voulais qu'on aille se balader pour discuter, tu me demandes si tu me plais, si j'ai envie de plus, et à la suite de mes réponses, tu m'as recadré en me disant qu'on est et sera que des potes, rien d'autre.
+Je t'avoue mon égo en a pris un coup, j'ai acquiescé, j'étais un peu dégouté parce que je m'attachais vraiment de ouf à toi et je voulais toujours plus avec toi.
+Mais au moins dans ma tête c'était clair maintenant donc je gardais un peu mes distances et j'essayais de faire attention à mes phrases et autres.`,
+
+`Le Rapprochement\n\nOn s'écrivait toujours autant, on passait énormément de temps ensemble, je passais beaucoup trop de temps dans vos bureaux mais j'aimais passer ces moments avec toi, vous, bien que tu m'ignorais très souvent quand je venais parce que tu n'aimais, n’osais pas me parler quand y'avais du monde autour. 
+Ça m'agaçait, du coup je disais que je décollais et j'espérais qu'à chaque fois tu me suives pour être un peu avec toi, et ça a marché.
+On se cherchait, on se battait, on rigolait, on faisait n'importe quoi, avec toi j'oubliais tout, je passais du bon moment, je t'aurais suivi n'importe où pour faire n'importe quoi.
+Les balades près de l'eau, les balades derrière l'aciérie, les balades pour découvrir des endroits, les balades dans des bungalows abandonnés... peu importe, j'étais avec toi.
+Je venais à l'improviste pour te faire une surprise, toujours quelqu'un présent, j'avoue ça me rendait jaloux
+"C'est pour le travail imbécile, tu as qu'à prévenir avant de venir", oui... mais je voulais te faire plaisir en venant par surprise
+On s'écrivait, on se cherchait un peu, on se taquinait
+On est allé se balader, et tu m'as dit "Alors tu ne vérifies pas si je suis un homme ou une femme ?", je t'avoue que ça m'a perturbé
+Dans ma tête des milliards de question s'installées.
+Les échanges par texto étaient de plus en plus intense, on se cherchait de plus en plus, tu me poussais à bout pour voir jusqu'où j'étais prêt à aller
+On est allé en salle de formation, tu m'as repoussé
+On est allé sur le tronc d'arbre, tu es venu sur moi, tu m'as rendu fou, tu m'as repoussé
+On est retourné en salle de formation, tu m'as repoussé, repoussé, repoussé... et tu as cédé, on s'est embrassé, tu m'as repoussé, on s'est re embrassé, on a fait l'amour...
+On a continué, on se voyait régulièrement, on s'embrassait de plus en plus, on faisait l'amour n'importe où, c'était du n'importe quoi et c'est ce que j'ai kiffé, rien était calculé, pour ma part en tout cas, on ne se prenait pas la tête et on vivait l'instant présent.`,
+
+`Une arrivé qui va tout changer...\n\nPuis ton mec arrive dans l’usine. 
+On se voyait mais avec prudence, on se baladait de moins en moins, on était au téléphone de moins en moins, tu me disais de plus en plus que tu posais ton téléphone, les week-ends on se parlaient peu...je sentais que je te perdais petit à petit, je te l'avais dit et tu me répondais que non.
+Tu faisais toujours en sorte pour être présente, tu faisais tout pour qu'on soit ensemble
+Je t'ai rendu folle mais j'avais tellement peur de te perdre... J'ai tellement failli te perdre plusieurs fois que j'avoue je me suis fait plein de film possible et inimaginable. Tu m'as toujours rassuré, merci.
+Tu m'as emmené dans ton endroit préféré, ton repère, voir tes chevaux et j'ai découvert encore une autre personne.
+Ça se lit sur ton visage, tu es très heureuse, épanouit dans ce lieu, on passe du temps ensemble, on rigole, on s'arrose, tu me fais t'occuper de tes chevaux, je les brosse, tu me montres comment faire, j'apprécie ce moment avec toi, de partager ton bonheur.`,
+
+`Le Chaos\n\nJe pars en vacances avec Aurore, et là, un coup de poignard que je n'ai pas vu arriver, je n'étais pas prêt à ce message... le soir, tu me dis de tout vouloir arrêter, un adieu.
+Je n'ai jamais ressenti ça, une pointe au cœur, comme si on me le serrait fort d'une main invisible, en bad total.
+Je ne comprenais pas, j'essayais d'avoir des explications mais tu avais pris ta décision, je n'ai pas dormi de la nuit, atroce
+J'avais perdu mon âme sœur, ma moitié, mon complément.`,
+
+`Les Retrouvailles\n\n2 jours après tu me dis de mal le vivre et décide d'être comme avant, que moi sans toi ce n'est pas possible.
+Il arrive le jour où tu fais ton EVJF, tu t'amuses, tu t'éclates et tu es la encore à m'écrire, à m'envoyer des vidéos ou tu plonges...nue... j'ai zoomé 656528 fois, des photos... la première photo sexy de toi et wahoo, j'ai dû la regarder pendant un long moment tellement j'étais en admiration devant ses courbes, j'ai kiffé.
+Nous avons continué à parler, pendant des heures et des heures, sans jamais se lâcher, tu m'as dit je t'aime, je t'ai dit je t'aime, on avait envie l'un de l'autre qu'on pourrait ken "H36", des câlins à s'en étouffer.`,
+
+`La Jalousie\n\nArriva le jour où tu me demandes de venir à l'anniversaire d'Enzo, je te dis qu'Aurore n'est pas là, tu me dis si tu ne viens pas "je ne te parle plus", je te demande si tu veux que je vienne ? tu me dis oui, 
+Je viens...
+Moment très dur à gérer... vous vous tournez autour, vous vous embrassez, il te met un doigt, vous êtes de longue collé... j'étais là, seul, à connaitre personne à part Flo, à passer mon temps à te regarder, vois ses scènes... j'étais dégouté. Tu viens, tu me demandes si je passe un bon moment, je te réponds "oui ça va", je discute un peu avec l'autre flo, il est cool. 
+Les jours passent des prises de têtes, de l'amour, de la taquinerie, de la jalousie, nous sommes passé par toute sorte d'étape, la frustration de ne pas être ensemble était si intense que nos émotions prenaient le dessus, j'avoue tu es bien plus doué que moi pour gérer ça, tu es bien plus doué que moi pour beaucoup de chose.
+C'est grâce à toi si j'en suis la aujourd’hui, dans ma manière de réfléchir, d'être, tu m'as juste révélé mon moi qui était enfoui au plus profond parce qu'avec toi je peux et sais être naturel, te mentir ? impossible, ça ne m'est jamais traversé l'esprit, te faire du mal ? loin de là, je préfère souffrir que plutôt qu'on te fasse souffrir.`,
+
+`La Déception\n\nEt pourtant... arrive se jour ou on se fait prendre... je ne savais pas quoi faire, quand il voulait que je vienne, il fallait que je vienne, pour toi mais tu me disais de ne pas venir, je roulais je ne savais pas quoi faire et je suis venu si je pouvais "t'aider" à apaiser les choses, je dois le faire pour toi.
+Un moment pas habituel, on va dire, je ne m’étais pas préparé à ce genre de situation, quoi faire ? quoi dire ?
+De plus la veille j'apprends que je vais être papa, comment réagir avec toutes ses infos d'un coup, je n'ai pas su gérer de la façon que tu le souhaitais, j'ai été égoïste et j'ai pensé à protéger "mon futur enfant" et dans ma tête quand ton mec a dit : je ne veux plus que vous vous voyiez, ni parlez donc je me suis dit si ça peut aider à vous retrouver... je t'avoue que dans ma tête des millions de questions ont circulé.
+3 jours après tu m'as appelé et m'a descendu plus bas que terre, avec des mots très fort et blessant. Je devais le mériter... mais wahoo qu'est-ce que ça fait mal venant de toi, mais je le sentais à ta voix que je t'avais déçue et ça tu n'imagines même pas à quel point ça m’a touché, blessé... je m'en veux encore aujourd'hui pour te dire car à tes yeux je voulais être "parfait" et j'ai échoué.
+Je n'avais plus du tout l'envie de quoi que ce soit, ni de qui que ce soit. Je ne dormais plus, je ne mangeais plus, je ne rigolais plus, j'étais vide. J'avais perdu définitivement la personne qui remplissait mon cœur de joie, de bonheur, qui illuminait mes journées juste avec un "Hello ça va ?" ou voir ta grosse tête à la cantine avec un petit sourire, tout ça était perdu... j'en ai pleuré.
+Pour que tu saches, j'ai pensé à 50 solutions parce que les nuits ou je ne dormais pas, les nuits fut longue...
+"Si je la quitte et que je me mets avec va-t-elle être heureuse ?"
+"Si je la quitte tant pis je renonce à avoir un enfant mais je suis avec la personne que je désire tant"
+"Si je la quitte après que j'ai un enfant va t'elle vouloir de moi d'ici là ?"
+"Si je la quitte va t'elle quitter ce qu'elle a construit ? Vais-je me retrouver seul ?"
+"Si je la quitte ...
+Je me suis fait toute sorte de schéma possible et inimaginable.`,
+
+`La Chute\n\nA la suite de ça, j'apprends que je perds l'enfant, j'étais effondré, trop de mauvaise nouvelle d'un coup, est-ce le Karma qui me punit de tout ? Je n'en sais rien, Ai-je mérité ça ? Peut-être... en 1 semaine j'avais perdu 8kg chose qui ne m’est jamais arrivé. Être dans un tel état pour une femme ? jamais et pourtant toi... toi qui modifie tous mes codes 
+"Jamais je ne sortirais avec une femme avec des enfants, je peux faire un effort pour 1... t'en as 3"
+« Jamais je ne ferais quoi que ce soit au travail... j'ai tout fait avec toi"
+« Jamais je ne tromperais, je l'ai fait avec toi"
+"Jamais ...
+Tu me fais tellement mentir sur tellement de chose, j'ai du mal à me reconnaitre parfois
+"Ah ouais ? elle veut plus de moi ? elle ne veut plus me parler ? pas de soucis même plus je lui parle... mais oui mais bien sûr... toutes les 30 min à regarder sur WhatsApp si tu es connecté, toutes les 30 min à regarder si je n'ai pas un message de toi, quand je rentre ou sors de l'usine à essayer de te croiser... je me mens à moi-même mais je t'aime beaucoup trop, je ne peux pas ne plus te parler, c'est impensable en fait, irréalisable.`,
+
+`Seconde Chance\n\nPetit à petit on se reparle, tu me laisses une chance. Enfin un sourire se dessine sur mon visage, je reparle un peu au gens, je re mange petit à petit, je re dors petit à petit
+Je me sens de mieux en mieux, tu es là.
+Mais rien ne peut être comme avant..., on ne se voit plus, on ne discute plus autant qu'avant, on peut être limite au téléphone, j'avoue que c'est dur, très dur, mais c'est comme ça... tu prends déjà énormément de risque pour maintenir ce lien et je t'en suis reconnaissant.
+Les jours, les semaines passent... c'est compliqué mais on est toujours là, je m'inquiète beaucoup pour toi, je sais que ton quotidien n'est pas évident et je ne t'aide pas en étant dans ta vie, mais je n’arrive pas, je t'aime beaucoup trop.
+Je prends sur moi, je t'écris des phrases déchirantes, j'en ai les larmes quand je te les écris, j'efface, je réécris mais je pense à ton bien et j'ai juste envi que tu sois heureuse, je te dis que tu devrais continuer ta vie familiale c'est celle que tu as choisi de toute façon, donc autant la vivre à 100% comme tu le faisais avant et de me virer de ta vie. Est-ce que je le veux ? JAMAIS mais pour toi je le ferais, je n’ai pas envie que tu souffres à cause de moi, que tes enfants soient tristes à cause de moi. 
+Lorsque tu m'as raconté pour ta fille quand ton mari lui a dit qu'on ne se parlait plus et qu'elle a répondu "moi aussi je ne lui parle plus alors" j'ai eu une petite pointe au cœur, ça m’a fait quelque chose.
+Mais non tu n'y arrives pas, ça me réconforte mais c'est égoïste une fois de plus, je devrais peut-être te dire stop mais je n'y arrive pas. Je ne veux pas.
+J'essaye d'être le plus présent pour toi malheureusement avec les moyens que j'ai, c'est compliqué mais je suis là et tu peux toujours compter sur moi`,
+
+`Les Péripéties\n\nTu stress, tu me rends fou tous les jours, j'essaie de te soutenir un maximum, tu te fais opérer le 4 novembre, tous les jours c'est compliqué pour toi, tu n'aimes pas être indépendante, à pas réussir à t'occuper de tes enfants, à ne plus pouvoir aller aux écuries, j'essaye de te soutenir un maximum et tu verras qu'après tout ça, tu vas pouvoir refaire tout ce que t'as toujours voulu faire parce que tu étais bridé et tu seras encore plus heureuse qu'avant.
+On arrive à se voir... je dis oui direct pour venir te chercher, j'avais tellement envie de te voir, ça m'avait tellement manqué, cette odeur, ces regards, ces gestes... qu'est-ce que ça fait du bien, je roule avec toi à mes côtés, je me sens apaisé, bien, je retrouve toutes ses sensations d'avant, on s'arrête je te serre fort dans les bras, on s'embrasse, on se caresse, les heures défiles, le temps va beaucoup trop vite à tes côtés. C'est déjà l'heure de se quitter... je n'en ai pas envie mais nous n'avons pas le choix... je me languis la prochaine fois, tu me manques déjà.
+Arrive le jour de ton anniversaire, une date que je n'oublie pas, pourtant je ne retiens pas les dates... 29 novembre, un week-end ou on ne se parle quasiment pas... un moment important ou je ne peux même pas être présent, ça m'attriste, je ne peux même pas te donner ton cadeau, ni te le souhaiter en face, rien... je suis dégouté.
+Quand tu me dis que tu as passé un week-end en émotion, j'ai tout de suite compris que ça venait de ton père, j'attendais que tu me racontes ton histoire pour t'écouter et te parler. Ça m'arrache le cœur, je sens que ça te peine énormément, surtout à un évènement ou c'est "censé" être la joie et la bonne humeur...
+Tu marches de mieux en mieux de jours en jours, tu reviens au boulot, j'arrive à voir ta grosse tête au self
+Je me mets en face pour te voir parce que j'avais envie de te regarder pendant que je mange, le téléphone vibre... "tu ne vas pas être content" je lève les yeux et je le vois... une bouffée de chaleur monte en moi, de la colère, de la jalousie, de la tristesse, un mélange de tout me traverse, horrible cette sensation. J'essaie de regarder ailleurs de tourner la tête... tu es en face, je te vois lui parler, rigoler avec... je n’arrive pas, normalement on décolle là qu'est-ce qu'il se passe ? ils sont là à discuter, ils ne s'arrêtent pas, je mets ma veste, on y va ? ils finissent leur discussion... enfin on se lève... plus jamais à cette place.`,
+
+`Un Adieu\n\nDepuis quelques jours dans nos échanges je te sens un différente, comme si tu avais encore pris du recul, on discute mais sans plus, je ne sais plus trop quoi faire, dire, on va se voir 1 fois cette semaine-là à la cantine et on dirait que ça ne t’affecte pas, tu ne dis rien, c'est horrible cette sensation, est ce que ça t’attriste ? est-ce que je te manque ? Je sais qu'oui mais tu effaces tellement tes sentiments, je prends sur moi, je ne dis rien contrairement à avant ou je t'aurais rendu folle, avant tu ne pouvais pas passer 2 min sans me parler, maintenant... des heures, des jours tu y arrives.
+Aujourd’hui tu es incertaine de tout, même de notre histoire, tu me disais tu es ma vie, on finira ensemble c'est sûr, maintenant tu ne me le dis plus et c'est plutôt "je ne suis pas sûr qu'un jour, on finira ensemble"... 
+J'avoue que ça m'anéanti de lire ce genre de chose venant de toi moi qui espérait beaucoup. Mais comme je m'en doutais, tu as construit ta vie, entièrement... Je n'ai pas encore le quart de ce que tu as.
+Bon bah voilà, tu viens de mettre fin à notre histoire, les larmes coulent en t'écrivant ces dernières lignes, moi qui pensais à une autre fin en écrivant notre récit, je ne pensais pas le cloturer subitement, de cette façon... Tu vas pouvoir maintenant être heureuse pleinement en vivant avec ta famille, je te le souhaite, tu le mérites et merci pour tout, j'aurais connu dans ma vie une femme qui m'aura fait me sentir moi durant 9 mois et j'avoue que ça m’a fait du bien, j'ai découvert ce que c'était vraiment d'être heureux. Généralement 9 mois c’est le résultat d’un bonheur, cette fois-ci, c’est un livre qui se ferme.
+C'est la première fois que je fais ça de ma vie.
+Je t'aime marie, ma vie. Adieu.`
+    ];
+
+    let idx = 0;
+    const pageEl = document.getElementById('page');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    const pageno = document.getElementById('pageno');
+
+    function render(){
+      const raw = pages[idx];
+      // transform first line as title if present
+      const parts = raw.split('\n\n');
+      let html = '';
+      if(parts[0]){
+        html += `<h1>${escapeHtml(parts[0])}</h1>`;
+        for(let i=1;i<parts.length;i++){
+          html += `<p>${escapeHtml(parts[i])}</p>`;
+        }
+      }
+      html += `<footer>Page ${idx+1} / ${pages.length}</footer>`;
+      pageEl.innerHTML = html;
+      pageno.textContent = `Page ${idx+1} / ${pages.length}`;
+      prevBtn.disabled = idx===0;
+      nextBtn.disabled = idx===pages.length-1;
+    }
+
+    function escapeHtml(s){
+      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/\' /g,'&#39;')
+               .replace(/\n/g,'<br>');
+    }
+
+    prevBtn.addEventListener('click',()=>{ if(idx>0){idx--;render();} });
+    nextBtn.addEventListener('click',()=>{ if(idx<pages.length-1){idx++;render();} });
+
+    // keyboard navigation
+    document.addEventListener('keydown', (e)=>{
+      if(e.key==='ArrowRight') nextBtn.click();
+      if(e.key==='ArrowLeft') prevBtn.click();
+    });
+
+    // initial render
+    render();
+  </script>
+</body>
+</html>
